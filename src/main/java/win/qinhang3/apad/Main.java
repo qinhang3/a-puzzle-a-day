@@ -16,12 +16,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  **/
 public class Main {
     private static int count = 0;
+    private static final ImageUtil imageUtil = new ImageUtil(1);
+
     public static void main(String[] args) {
         Suit suit = new NormalSuit();
 
         //JUN 1
-        suit.getMap().getData()[0][5] = 100;
-        suit.getMap().getData()[2][1] = 100;
+        suit.getMap().getData()[0][1] = 100;
+        suit.getMap().getData()[4][1] = 100;
 
         //DEMO
 //        suit.getMap().getData()[0][0] = 100;
@@ -34,7 +36,8 @@ public class Main {
     private static void dfs(Suit suit, int p){
         if (suit.getPieces().size() <= p){
             suit.getMap().printMap(++count);
-            ImageUtil.draw(suit.getMap());
+            imageUtil.draw(suit.getMap());
+//            System.exit(0);
             return;
         }
         Piece piece = suit.getPieces().get(p);
