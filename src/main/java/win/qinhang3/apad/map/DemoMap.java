@@ -2,6 +2,8 @@ package win.qinhang3.apad.map;
 
 import lombok.Getter;
 
+import java.util.Calendar;
+
 /**
  * @description:
  * @author: hang
@@ -28,5 +30,10 @@ public class DemoMap implements Map{
     @Override
     public int getM() {
         return data[0].length;
+    }
+
+    @Override
+    public void target(Calendar calendar) {
+
     }
 }

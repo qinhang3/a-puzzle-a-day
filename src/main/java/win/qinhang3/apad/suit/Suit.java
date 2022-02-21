@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 /**
@@ -20,28 +23,29 @@ public interface Suit {
     Map getMap();
     List<Piece> getPieces();
 
-    default void run(Consumer<Map> callback){
-        dfs(0, callback);
+    default void run(BiConsumer<Map, AtomicBoolean> callback){
+        dfs(0, callback, new AtomicBoolean(false));
     }
 
-    default void dfs(int p, Consumer<Map> callback){
+    default void dfs(int p, BiConsumer<Map, AtomicBoolean> callback, AtomicBoolean finish){
         if (this.getPieces().size() <= p){
-            callback.accept(getMap());
+            callback.accept(getMap(), finish);
+            return;
         }
         Piece piece = this.getPieces().get(p);
 
         Set<Piece> usedPiece = Sets.newHashSet();
-        for (int f = 0; f < 2; f++) {
-            for (int r = 0; r < 4; r++) {
+        for (int f = 0; f < 2 && !finish.get(); f++) {
+            for (int r = 0; r < 4 && !finish.get(); r++) {
                 if (usedPiece.contains(piece)){
                     continue;
                 }
                 usedPiece.add(piece);
-                for (int i = 0; i < this.getMap().getN(); i++) {
-                    for (int j = 0; j < this.getMap().getM(); j++) {
+                for (int i = 0; i < this.getMap().getN() && !finish.get(); i++) {
+                    for (int j = 0; j < this.getMap().getM() && !finish.get(); j++) {
                         boolean b = this.getMap().tryPiece(piece, i, j, p);
                         if (b){
-                            dfs(p + 1, callback);
+                            dfs(p + 1, callback, finish);
                             this.getMap().removePiece(piece, i, j ,p);
                         }
                     }

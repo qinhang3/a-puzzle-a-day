@@ -30,15 +30,16 @@ public class Main {
         Suit suit = new NormalSuit();
         suit.getMap().target(Calendar.getInstance());
         Collections.shuffle(suit.getPieces());
-        suit.run(map -> {
+        suit.run((map,finish) -> {
             imageUtil.add(map);
             BufferedImage draw = imageUtil.draw();
             try {
                 ImageIO.write(draw, "png", new File("test.png"));
+                finish.set(true);
             } catch (Exception e){
                 e.printStackTrace();
             }
-            System.exit(0);
+//            System.exit(0);
         });
     }
 

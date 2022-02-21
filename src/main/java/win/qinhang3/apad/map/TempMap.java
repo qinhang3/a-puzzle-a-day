@@ -2,6 +2,8 @@ package win.qinhang3.apad.map;
 
 import lombok.Getter;
 
+import java.util.Calendar;
+
 /**
  * @description:
  * @author: hang
@@ -17,5 +19,10 @@ public class TempMap implements Map{
         this.data = data;
         this.N = data.length;
         this.M = data[0].length;
+    }
+
+    @Override
+    public void target(Calendar calendar) {
+
     }
 }
