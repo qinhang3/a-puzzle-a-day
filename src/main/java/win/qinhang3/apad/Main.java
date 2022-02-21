@@ -24,8 +24,6 @@ import java.util.function.Consumer;
  * @create: 2022/2/11
  **/
 public class Main {
-    private Consumer<Map> callback;
-
     private static final ImageUtil imageUtil = new ImageUtil(1);
 
     public static void main(String[] args) throws IOException {
