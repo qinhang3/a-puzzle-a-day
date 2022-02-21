@@ -2,11 +2,8 @@ package win.qinhang3.apad;
 
 import win.qinhang3.apad.map.Map;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -25,9 +22,13 @@ public class ImageUtil {
         C = c;
     }
 
-    public void draw(Map map){
+    public void add(Map map){
         maps.add(map.copy());
+    }
+
+    public BufferedImage draw(){
         int count = maps.size();
+        Map map = maps.get(0);
 
         int R = count / C;
         if (count % C > 0){
@@ -58,10 +59,6 @@ public class ImageUtil {
             }
         }
 
-        try {
-            ImageIO.write(newBuf, "png", new File("/Users/hang/Downloads/test.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return newBuf;
     }
 }

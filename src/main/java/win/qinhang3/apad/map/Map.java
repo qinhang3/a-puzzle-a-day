@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Calendar;
 
 /**
  * @description:
@@ -16,6 +17,13 @@ public interface Map {
     int[][] getData();
     int getN();
     int getM();
+
+    default void target(Calendar calendar){
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH) - 1;
+        getData()[month / 6][month % 6] = 100;
+        getData()[day / 7 + 2][day % 7] = 100;
+    }
 
     default Map copy(){
         int[][] nd = new int[getN()][getM()];

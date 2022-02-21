@@ -6,6 +6,12 @@ import win.qinhang3.apad.suit.DemoSuit;
 import win.qinhang3.apad.suit.NormalSuit;
 import win.qinhang3.apad.suit.Suit;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,16 +24,18 @@ public class Main {
     private static int count = 0;
     private static final ImageUtil imageUtil = new ImageUtil(1);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Suit suit = new NormalSuit();
 
         //JUN 1
-        suit.getMap().getData()[0][1] = 100;
-        suit.getMap().getData()[4][1] = 100;
+//        suit.getMap().getData()[0][1] = 100;
+//        suit.getMap().getData()[4][1] = 100;
 
         //DEMO
 //        suit.getMap().getData()[0][0] = 100;
 
+        suit.getMap().target(Calendar.getInstance());
+        Collections.shuffle(suit.getPieces());
 
         int p = 0;
         dfs(suit, p);
@@ -36,9 +44,14 @@ public class Main {
     private static void dfs(Suit suit, int p){
         if (suit.getPieces().size() <= p){
             suit.getMap().printMap(++count);
-            imageUtil.draw(suit.getMap());
-//            System.exit(0);
-            return;
+            imageUtil.add(suit.getMap());
+            BufferedImage draw = imageUtil.draw();
+            try {
+                ImageIO.write(draw, "png", new File("test.png"));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+            System.exit(0);
         }
         Piece piece = suit.getPieces().get(p);
 
