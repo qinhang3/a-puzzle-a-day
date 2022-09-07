@@ -35,7 +35,7 @@ public class Main {
             imageUtil.add(map);
             BufferedImage draw = imageUtil.draw();
             try {
-                ImageIO.write(draw, "png", new File("test.png"));
+                ImageIO.write(draw, "png", new File("today.png"));
                 finish.set(false);
             } catch (Exception e){
                 e.printStackTrace();
