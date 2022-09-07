@@ -1,8 +1,5 @@
 package win.qinhang3.apad;
 
-import com.google.common.collect.Sets;
-import win.qinhang3.apad.piece.Piece;
-import win.qinhang3.apad.suit.DemoSuit;
 import win.qinhang3.apad.suit.NormalSuit;
 import win.qinhang3.apad.suit.Suit;
 
@@ -11,12 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
+import java.util.TimeZone;
 
 /**
  * @description:
@@ -29,7 +21,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
         Suit suit = new NormalSuit();
-        suit.getMap().target(Calendar.getInstance());
+        suit.getMap().target(Calendar.getInstance(TimeZone.getTimeZone("GMT+8")));
 //        Collections.shuffle(suit.getPieces());
         suit.run((map,finish) -> {
             imageUtil.add(map);
